@@ -1,3 +1,39 @@
+
+// A LA CARTE ENTERTAINMENT – PRICELIST
+// --------------------------------
+
+####################################
+ Data Structures
+####################################
+
+// Ticket Coverage Fee
+<CoverCharge>
+	numChild = 0
+	numAdult = 0
+	numSenior = 0
+	childPrice = 0.75
+	adultPrice = 4.00
+	seniorPrice = 1.50
+</CoverCharge>
+
+// Tickets
+<Tickets>
+	AttendeeQty = 0
+	showType
+	showTime
+	<Prices>
+		<musical>
+			Matinée = 70.00
+			Evening = 150.00
+		</musical>
+		<theatre>
+			Matinée = 55.00
+			Evening = 115.00
+		</theatre>
+	</Prices>
+</Tickets>
+
+
 <valetCharge>
 	matinStdPrice = 10
 	matinVipPrice = 15
@@ -9,32 +45,6 @@
 	visitNum = 0
 </valetCharge>
 
-<order>
-	orderId
-	qrCode
-	valet (type <valetCharge>)
-	valetCharge
-	totalCoverCharge
-	charge (type <coverCharge>)
-	totalTicketCharge
-	feature (type <featureCharge>)
-	snacks (type <snacksCharge>)
-	discountPercent
-	discountAmount
-	depositAmount
-	total
-</order>
-
-<CoverCharge>
-	numChild
-	numAdult
-	numSenior
-	childPrice
-	adultPrice
-	seniorPrice
-</CoverCharge>
-
-
 <SnackCharge>	 
 	purchaseSnacks = false
 	numNonAlcohol
@@ -45,40 +55,53 @@
 	candyPrice
 </SnackCharge>
 
+<order>
+	orderId
+	qrCode
+	valetCharge
+	totalCoverCharge
+	totalTicketCharge
+	valet (type <valetCharge>)
+	charge (type <coverCharge>)
+	feature (type <featureCharge>)
+	snacks (type <snacksCharge>)
+	discountPercent
+	discountAmount
+	depositAmount
+	total
+</order>
 
 ####################################
  Main logic
 ####################################
-
 main
 -------------------------
 1. Creates a variable currentOrder of type <order>
 2. Display "Choose your tickets"
 3. Calls addFeature ( currentOrder = addFeature(currentOrder) )
-4. Did the deposit get paid? (Call paymentGateway(currentOrder::depositAmount)
+4. Did the deposit get paid? (Call paymentGateway(currentOrder::depositAmount))
 	No: Repeat step 4
 5. Call createQR ( currentOrder::qrCode = createQR(currentOrder::orderId))
 6. Is the event over yet?
 	No: a. Has the QR code been scanned?
 		Valet: Calls addValetCharge (currentOrder = addValetCharge(currentOrder))
 		Snacks: Calls addSnacks (currentOrder = addSnacks(currentOrder))
-	    b. Repeat from Step 6
+		b. Repeat from Step 6
 	Yes: a. Call printReceipt (currentOrder = printReceipt(currentOrder))
 	     b. Did the payment get successfully done? ( Call paymentGateway(currentOrder::total))
 			Yes: Display: "Thank you for visiting"
 			No: Repeat from step 6.Yes.b
 7. End
 
-
 ####################################
  Sub-Processes "Closed boxes"
 ####################################
 
 paymentGateway(amount)
-// This "closed box" process will take user's payment info and try to initiate a transaction for the inputted amount
-// It will return true or false depending on whether the transaction passed or failed.
+1. 	This "closed box" process will take user's payment info and try to initiate a transaction for the inputted amount
+2.	It will return true or false depending on whether the transaction passed or failed.
 
 createQR(id)
-// This "closed box" process will take user's order id and convert it into a scannable QR code.
-// It will return a link to a png containing the user's QR code
+1.	This "closed box" process will take user's order id and convert it into a scannable QR code.
+2.	It will return a link to a png containing the user's QR code.
 
