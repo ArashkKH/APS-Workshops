@@ -17,7 +17,7 @@
 </CoverCharge>
 
 // Tickets
-<Tickets>
+<TicketOrder>
 	AttendeeQty = 0
 	showType
 	showTime
@@ -31,7 +31,7 @@
 			Evening = 115.00
 		</theatre>
 	</Prices>
-</Tickets>
+</TicketOrder>
 
 
 <valetCharge>
