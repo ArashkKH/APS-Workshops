@@ -5,71 +5,64 @@
 ####################################
  Data Structures
 ####################################
+<OrderData>
+	- orderNumber
+	- <Attendees>
+	- <ShowData>
+	- <Sevices>
 
-// Ticket Coverage Fee
-<CoverCharge>
-	numChild = 0
-	numAdult = 0
-	numSenior = 0
-	childPrice = 0.75
-	adultPrice = 4.00
-	seniorPrice = 1.50
-</CoverCharge>
+// OrderData Sub Structures
+	<Attendees>
+		- juniorNum
+		- AdultNum
+		- SeniorNum
 
-// Tickets
-<TicketOrder>
-	AttendeeQty = 0
-	showType
-	showTime
-	<Prices>
-		<musical>
-			Matinée = 70.00
-			Evening = 150.00
-		</musical>
-		<theatre>
-			Matinée = 55.00
-			Evening = 115.00
-		</theatre>
-	</Prices>
-</TicketOrder>
+	<ShowData>
+		- Time
+		- Type
+		- Date
+
+	<Services>
+		- <ValetData>
+		- <Snacks>
+
+	// Services Sub Structures
+		<ValetData>
+			- type
+			- tipAmount
+		
+		<Snacks>
+			- nonAlchoholNum
+			- alchoholicNum
+			- miscNum
+
+<PricingData>
+	<Discounts>
+	<Snacks>
+	<Valet>
+	<Coverage>
+	<Tickets>
+	<Reservation>
+
+	// sub structures for PricongData
+	<Discounts>
+		- for2
+		- for3
+		- for4
+		- forMore
+	
+	<Snacks>
+		
 
 
-<valetCharge>
-	matinStdPrice = 10
-	matinVipPrice = 15
-	eveStdPrice = 20
-	eveVipPrice = 30
-	valetType
-	isTip = false
-	tipAmount = 0
-	visitNum = 0
-</valetCharge>
 
-<SnackCharge>	 
-	purchaseSnacks = false
-	numNonAlcohol
-	numAlcohol
-	numCandy
-	nonAlcoholPrice
-	alcoholPrice
-	candyPrice
-</SnackCharge>
 
-<order>
-	orderId
-	qrCode
-	valetCharge
-	totalCoverCharge
-	totalTicketCharge
-	valet (type <valetCharge>)
-	charge (type <coverCharge>)
-	feature (type <featureCharge>)
-	snacks (type <snacksCharge>)
-	discountPercent
-	discountAmount
-	depositAmount
-	total
-</order>
+
+
+
+
+
+
 
 ####################################
  Main logic
