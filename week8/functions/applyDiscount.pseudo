@@ -1,36 +1,20 @@
-Discounts
+ApplyDiscount
+--------------------
+1.	Recieves attendeeQty 
+2.	Receives ticketPrice
 
-<Snack Charges>
-	numNonAlcohol
-	numAlcohol
-	numCandy
-	nonAlcoholPrice
-	alchoholPrice
-	candyPrice
+3.	How many attendees are there?
+		are there 2? (attendeeQty == 2)
+			set the discount percent to 5
+		are there 3? (attendeeQty == 3)
+			set the discount percent to 15
+		are there 4? (attendeeQty == 4)
+			set the discount percent to 25
+		are there 5 or more? (attendeeQty >= 5)
+			set the discount percent to 30
 
-
-applyDiscount(numPeople, ticketPrice)
-{
-	int discountPercent
-	float discountedPrice
-	
-	if numPeople == 2 {
-		discountPercent = 5
-	}
-	if numPeople == 3 {
-		discountPercent = 15
-	}
-	if numPeople == 4 {
-		discountPercent = 25
-	}
-	if numPeople >= 5 {
-		discountPercent = 30
-	}
-	
-	discountedPrice = ticketPrice - (ticketPrice/discountPercent)
-	return discountedPrice
-	
-}
+4. Calculate the discounted price
+5. Store the discounted price 
 
 
 
