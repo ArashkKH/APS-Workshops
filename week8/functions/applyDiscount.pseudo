@@ -1,17 +1,17 @@
 ApplyDiscount
 --------------------
-1.	Recieves attendeeQty 
-2.	Receives ticketPrice
+1. Recieves attendeeQty 
+2. Receives ticketPrice
 
-3.	How many attendees are there?
-		are there 2? (attendeeQty == 2)
-			set the discount percent to 5
-		are there 3? (attendeeQty == 3)
-			set the discount percent to 15
-		are there 4? (attendeeQty == 4)
-			set the discount percent to 25
-		are there 5 or more? (attendeeQty >= 5)
-			set the discount percent to 30
+3. How many attendees are there?
+	are there 2? (attendeeQty == 2)
+		set the discount percent to 5
+	are there 3? (attendeeQty == 3)
+		set the discount percent to 15
+	are there 4? (attendeeQty == 4)
+		set the discount percent to 25
+	are there 5 or more? (attendeeQty >= 5)
+		set the discount percent to 30
 
 4. Calculate the discounted price
 5. Store the discounted price 
