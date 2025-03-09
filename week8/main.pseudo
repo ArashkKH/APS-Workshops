@@ -5,103 +5,166 @@
 ####################################
  Data Structures
 ####################################
+<OrderData>
+	- orderNumber
+	- <Attendees>
+	- <ShowData>
+	- <Sevices>
 
-// Ticket Coverage Fee
-<CoverCharge>
-	numChild = 0
-	numAdult = 0
-	numSenior = 0
-	childPrice = 0.75
-	adultPrice = 4.00
-	seniorPrice = 1.50
-</CoverCharge>
+<PricingData>
+	- <Discounts>
+	- <Snacks>
+	- <Valet>
+	- <Coverage>
+	- <Tickets>
+	- ReservationFee
 
-// Tickets
-<TicketOrder>
-	AttendeeQty = 0
-	showType
-	showTime
-	<Prices>
-		<musical>
-			Matinée = 70.00
-			Evening = 150.00
-		</musical>
-		<theatre>
-			Matinée = 55.00
-			Evening = 115.00
-		</theatre>
-	</Prices>
-</TicketOrder>
+// second level sub Structures
+
+<Attendees>
+	- juniorNum
+	- AdultNum
+	- SeniorNum
+
+<ShowData>
+	- Time
+	- Type
+
+<Sevices>
+	<ValetData>
+	<Snacks>
+
+<Discounts>
+	- for2
+	- for3
+	- for4
+	- forMore
+
+<Snacks>
+	- nonAlchohol
+	- alchoholic
+	- misc
+
+<Valet>
+	- <StandarValet>
+	- <VipValet>
+
+<Coverage>
+	- junior
+	- Adult
+	- Senior
+
+<Tickets>
+	- <Theatre>
+	- <Musical>
+
+// third level sub structures
+
+<ValetData>
+	- type
+	- tipAmount
+
+<Snacks>
+	- nonAlchoholNum
+	- alchoholicNum
+	- miscNum
+
+<StandarValet>
+	- Morning
+	- Evening
+
+<VipValet>
+	- Morning
+	- Evening
+
+<Theatre>
+	- Morning
+	- Evening
+<Musical>
+	- Morning
+	- Evening
+	
 
 
-<valetCharge>
-	matinStdPrice = 10
-	matinVipPrice = 15
-	eveStdPrice = 20
-	eveVipPrice = 30
-	valetType
-	isTip = false
-	tipAmount = 0
-	visitNum = 0
-</valetCharge>
-
-<SnackCharge>	 
-	purchaseSnacks = false
-	numNonAlcohol
-	numAlcohol
-	numCandy
-	nonAlcoholPrice
-	alcoholPrice
-	candyPrice
-</SnackCharge>
-
-<order>
-	orderId
-	qrCode
-	valetCharge
-	totalCoverCharge
-	totalTicketCharge
-	valet (type <valetCharge>)
-	charge (type <coverCharge>)
-	feature (type <featureCharge>)
-	snacks (type <snacksCharge>)
-	discountPercent
-	discountAmount
-	depositAmount
-	total
-</order>
 
 ####################################
  Main logic
 ####################################
+
 main
 -------------------------
-1. Creates a variable currentOrder of type <order>
-2. Display "Choose your tickets"
-3. Calls addFeature ( currentOrder = addFeature(currentOrder) )
-4. Did the deposit get paid? (Call paymentGateway(currentOrder::depositAmount))
-	No: Repeat step 4
-5. Call createQR ( currentOrder::qrCode = createQR(currentOrder::orderId))
-6. Is the event over yet?
-	No: a. Has the QR code been scanned?
-		Valet: Calls addValetCharge (currentOrder = addValetCharge(currentOrder))
-		Snacks: Calls addSnacks (currentOrder = addSnacks(currentOrder))
-		b. Repeat from Step 6
-	Yes: a. Call printReceipt (currentOrder = printReceipt(currentOrder))
-	     b. Did the payment get successfully done? ( Call paymentGateway(currentOrder::total))
-			Yes: Display: "Thank you for visiting"
-			No: Repeat from step 6.Yes.b
-7. End
 
-####################################
- Sub-Processes "Closed boxes"
-####################################
+1.	DECLARE : CurrentOrder (<OrderData>)
+2.	DECLARE : StaticData (<PricingData>)
+3.	Declare sumOfPeople
+4.	Declare PaymentResult and set to false
+5.	Declare isQrScanned and set to false
 
-paymentGateway(amount)
-1. 	This "closed box" process will take user's payment info and try to initiate a transaction for the inputted amount
-2.	It will return true or false depending on whether the transaction passed or failed.
+6.	PRINT "Welcome to A la Carte Entertainment reservation System Click 
+		add Order to start the process!"
 
-createQR(id)
-1.	This "closed box" process will take user's order id and convert it into a scannable QR code.
-2.	It will return a link to a png containing the user's QR code.
+7.	RENDER "Add Order" Button
+8.	has the "Add Order" Button been pressed?
+		NO : A. REPEAT from Step #5
+
+9.	NAVIGATE to "ORDER iNFORMATION" page
+10.	PROMPT "show type:"
+11.	RENDER two options type of radioboxes ( Musical or Theatre )
+
+12.	PROMPT "show time:"
+13.	RENDER two options type of radioboxes ( Matinée or Evening )
+
+14.	PROMPT "Enter number of Junior participants:"
+15.	RENDER nummber input box for Juniors 
+
+16.	PROMPT "Enter number of Adult participants:"
+17.	RENDER nummber input box for Adults
+
+18.	PROMPT "Enter number of Senior participants:"
+19.	RENDER nummber input box for Seniors 
+
+20.	RENDER "next step" Button
+21.	has the "next step" Button been pressed?
+	NO:	REPEAT from step #18
+
+22.	CALL: updateTicketData ()
+
+23.	NAVIGATE to "RESERVATION" page
+
+24.	SET sumOfPeople to the total of participants
+	(sumOfPeople = OrderData::Attendees:juniorNum +
+					OrderData::Attendees:adultNum +
+					OrderData::Attendees:seniorNum)
+
+25.	PRINT "you have selected to participate in {OrderData::ShowData::Time} at {OrderData::ShowData::Type} for
+	{sumOfPeople} please note to have your place reserved you need to make a payment of
+	{PricingData::ReservationFee} dollars"
+
+26.	RENDER "Click to pay Button"
+27.	has the "Click to pay Button" been pressed ? 
+		NO: REPEAT from step #26
+		YES:A.	CALL processPayment_PayPal(PricingData::ReservationFee) // <-- closed Process
+			B.	SET PaymentResult to result of processPayment_PayPal() function call (PaymentResult = processPayment_PayPal(50))
+28.	was the payment successful? (PaymentResult == true)
+		NO: A.	Print "Payment Unsuccessfull please try again or contact support."
+			B.	REPEAT from step #26
+
+29.	set PaymentResult to false
+
+29.	NAVIGATE to "Ready For Show" Page
+
+30.	Print	"Congrats, now you are ready to participate in the show
+			please make sure you scan the QR-Code below for using any of the 
+			on-sight services - additional charges may apply"
+
+31. CALL: GenerateQrCode(OrderData::orderNumber) // <-- closed Process
+
+// in entertainment sight
+
+32.	CALL: fetchScanStat(orderID::orderNumber) // <-- closed Process
+
+
+
+
+
 

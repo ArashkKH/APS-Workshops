@@ -1,0 +1,118 @@
+// a la cart stuctures
+Structures:
+
+<CoverCharge>
+numChild
+numAdult
+numSenior
+childPrice
+adultPrice
+seniorPrice
+
+<SnackCharge>
+numNonAlcohol
+numAlcohol
+numCandy
+nonAlcoholPrice
+alcoholPrice
+candyPrice
+
+
+
+// student information system
+// --------------------------------
+
+####################################
+ Data Structures
+####################################
+
+<StudentRecord>
+    - studentID
+    - name
+    - grades collection of <Grade>
+
+<Grade>
+    - assessmentName
+    - marksPossible
+    - marksEarned
+	
+####################################
+ Main logic
+####################################
+
+main:
+
+1.	DECLARE: isNewRecord (Yes|No)
+2.	DECLARE: allRecords (collection of <StudentRecord>)
+
+3.	Get all student information (Database) 
+	CALL: getAllStudentInformation (Closed Box)
+4. 	Store result collection to allRecords
+
+5.  DISPLAY: "Add a new student record?"
+6.  STORE: response to isNewRecord
+7.  Add New Record? (evaluate isNewRecord = Yes)
+	YES:	a) Append to allRecords = CALL: addStudent
+			b) Repeat from step #5
+
+8. 	Display student data
+	CALL: displayStudentData (send allRecords)
+
+9.	End	
+
+####################################
+ Sub-Processes ("Closed boxes")
+####################################
+
+getAllStudentInformation
+------------------------
+1. This "closed box" process will pull/query all student data from
+   the college database.
+2. It will return the collection of <studentRecord> data
+
+
+####################################
+ Sub-Processes ("open boxes")
+####################################
+
+AddStudent
+---------------------
+1. Create empty <studentRecord>
+2. prompt user for student name
+3. assign input value to studentRecord::name
+2. prompt user for student id
+3. assign input value to studentRecord::studentID
+4. Add more grades?
+	YES:	a) append studentRecord::grades = CALL: AddGrade
+			b) repeat from step #4
+5. return input data <studentRecord>
+
+DisplayStudentData
+-------------------------
+1. Receives: collection of <StudentRecord>
+2. Declare: currentRecord <StudentRecord>
+            currentGrade <Grade>
+3. Are there more student records to display?
+	YES:	a) Get next record: currentRecord = next <studentRecord>
+			b) DISPLAY: Name (currentRecord::name)
+			c) DISPLAY: Student ID (currentRecord::studentID)
+			d) Are there more grades to display?
+				YES:	1. Get next grade: currentGrade = next currentRecord::grades
+						2. DISPLAY: Assessment name (currentGrade::assessmentName)
+						3. DISPLAY: Marks Possible (currentGrade::marksPossible)
+						4. DISPLAY: Marks Earned (currentGrade::marksEarned)
+						5. repeat from step 3.d
+			e) Repeat from step #3
+4. End
+
+AddGrade
+-------------------------
+1. Declare grade <Grade> (empty)
+2. prompt user for assessment name
+3. assign input value to grade::assessmentName
+4. prompt user for marks possible
+5. assign input value to grade::marksPossible
+6. prompt user for marks earned
+7. assign input value to grade::marksEarned
+8. Return grade
+9. End
