@@ -192,6 +192,3 @@ main
 			B.	REPEAT from step #39
 		YES:A.	Print "Payment Successful, thank you for using our services :)"
 END
-						
-
-				
