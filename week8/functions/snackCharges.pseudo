@@ -1,0 +1,20 @@
+####################################
+ Data Structures
+####################################
+
+<SnackCharge>
+	numNonAlcohol
+	numAlcohol
+	numCandy
+	nonAlcoholPrice
+	alchoholPrice
+	candyPrice
+	
+####################################
+ Sub-Processes ("open boxes")
+####################################
+
+AddSnackCharge
+---------------
+
+1. 
