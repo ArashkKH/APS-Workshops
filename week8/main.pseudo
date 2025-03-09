@@ -8,51 +8,85 @@
 <OrderData>
 	- orderNumber
 	- <Attendees>
-		- juniorNum
-		- AdultNum
-		- SeniorNum
 	- <ShowData>
-		- Time
-		- Type
-		- Date
 	- <Sevices>
-		- <ValetData>
-			- type
-			- tipAmount
-		- <Snacks>
-			- nonAlchoholNum
-			- alchoholicNum
-			- miscNum
 
 <PricingData>
-	<Discounts>
-		- for2
-		- for3
-		- for4
-		- forMore
-	<Snacks>
-		- nonAlchohol
-		- alchoholic
-		- misc
-	<Valet>
-		- <StandarValet>
-			- Morning
-			- Evening
-		- <VipValet>
-			- Morning
-			- Evening
-	<Coverage>
-		- junior
-		- Adult
-		- Senior
-	<Tickets>
-		- <Theatre>
-			- Morning
-			- Evening
-		- <Musical>
-			- Morning
-			- Evening
+	- <Discounts>
+	- <Snacks>
+	- <Valet>
+	- <Coverage>
+	- <Tickets>
 	- ReservationPayment
+
+// second level sub Structures
+
+<Attendees>
+	- juniorNum
+	- AdultNum
+	- SeniorNum
+
+<ShowData>
+	- Time
+	- Type
+	- Date
+
+<Sevices>
+	<ValetData>
+	<Snacks>
+
+<Discounts>
+	- for2
+	- for3
+	- for4
+	- forMore
+
+<Snacks>
+	- nonAlchohol
+	- alchoholic
+	- misc
+
+<Valet>
+	- <StandarValet>
+	- <VipValet>
+
+<Coverage>
+	- junior
+	- Adult
+	- Senior
+
+<Tickets>
+	- <Theatre>
+	- <Musical>
+
+// third level sub structures
+
+<ValetData>
+	- type
+	- tipAmount
+
+<Snacks>
+	- nonAlchoholNum
+	- alchoholicNum
+	- miscNum
+
+<StandarValet>
+	- Morning
+	- Evening
+
+<VipValet>
+	- Morning
+	- Evening
+
+<Theatre>
+	- Morning
+	- Evening
+<Musical>
+	- Morning
+	- Evening
+	
+
+
 
 ####################################
  Main logic
@@ -61,4 +95,34 @@
 main
 -------------------------
 
+1.	DECLARE : CurrentOrder (<OrderData>)
+2.	DECLARE : StaticData (<PricingData>)
 
+3.	PRINT "Welcome to A la Carte Entertainment reservation System Click 
+		add Order to start the process!"
+
+4.	RENDER "Add Order" Button
+5.	has the "Add Order" Button been pressed?
+		NO : A. REPEAT from Step #5
+
+6.	NAVIGATE to "ORDER iNFORMATION" page
+7.	PROMPT "show type:"
+8.	RENDER two options type of radioboxes ( Musical or Theatre )
+
+9.	PROMPT "show time:"
+10.	RENDER two options type of radioboxes ( Matinée or Evening )
+
+11.	PROMPT "Enter number of Junior participants:"
+12.	RENDER nummber input box for Juniors 
+
+13.	PROMPT "Enter number of Adult participants:"
+14.	RENDER nummber input box for Adults
+
+15.	PROMPT "Enter number of Senior participants:"
+16.	RENDER nummber input box for Seniors 
+
+17.	RENDER "next step" Button
+18.	has the "next step" Button been pressed?
+	NO:	REPEAT from step #18
+
+19.	CALL: updateTicketData ()
