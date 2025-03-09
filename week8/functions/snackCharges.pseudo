@@ -41,3 +41,5 @@ AddSnackCharge
 		SET purchasedAlcohol = TRUE
 
 10. Determine costs of each category
+
+11. Return costs to <CurrentOrder>
