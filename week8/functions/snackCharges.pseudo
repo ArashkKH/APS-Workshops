@@ -17,4 +17,27 @@
 AddSnackCharge
 ---------------
 
-1. 
+1. SET alchoholPrice to 7.5
+2. SET nonAlcoholPrice to 2.25
+3. SET candyPrice 1.75
+
+4. DECLARE purchasedAlcohol = FALSE
+5. DECLARE purchasedNonAlcoholic = FALSE
+6. Declare purchasedCandy = FALSE
+
+7. Customer purchases items
+
+8. What did the customer purchase?
+	Alchohol: add alchohol to purchase (numAlchohol += 1)		
+	Non-alcoholic drink: add non-alcoholic to purchase (numNonAlcohol += 1)
+	Candy: add candy to purchase (numCandy += 1)
+
+9. Determine what customer purchased
+	Did they purchase alcohol? (numAlcohol > 0)
+		SET purchasedAlcohol = TRUE
+	Did they purchase non-alcoholic drinks? (numNonAlcohol > 0)
+		SET purchasedNonAlcoholic = TRUE
+	Did they purchase candy? (numCandy > 0)
+		SET purchasedAlcohol = TRUE
+
+10. Determine costs of each category
