@@ -17,7 +17,7 @@
 	- <Valet>
 	- <Coverage>
 	- <Tickets>
-	- ReservationPayment
+	- ReservationFee
 
 // second level sub Structures
 
@@ -29,7 +29,6 @@
 <ShowData>
 	- Time
 	- Type
-	- Date
 
 <Sevices>
 	<ValetData>
@@ -97,32 +96,75 @@ main
 
 1.	DECLARE : CurrentOrder (<OrderData>)
 2.	DECLARE : StaticData (<PricingData>)
+3.	Declare sumOfPeople
+4.	Declare PaymentResult and set to false
+5.	Declare isQrScanned and set to false
 
-3.	PRINT "Welcome to A la Carte Entertainment reservation System Click 
+6.	PRINT "Welcome to A la Carte Entertainment reservation System Click 
 		add Order to start the process!"
 
-4.	RENDER "Add Order" Button
-5.	has the "Add Order" Button been pressed?
+7.	RENDER "Add Order" Button
+8.	has the "Add Order" Button been pressed?
 		NO : A. REPEAT from Step #5
 
-6.	NAVIGATE to "ORDER iNFORMATION" page
-7.	PROMPT "show type:"
-8.	RENDER two options type of radioboxes ( Musical or Theatre )
+9.	NAVIGATE to "ORDER iNFORMATION" page
+10.	PROMPT "show type:"
+11.	RENDER two options type of radioboxes ( Musical or Theatre )
 
-9.	PROMPT "show time:"
-10.	RENDER two options type of radioboxes ( Matinée or Evening )
+12.	PROMPT "show time:"
+13.	RENDER two options type of radioboxes ( Matinée or Evening )
 
-11.	PROMPT "Enter number of Junior participants:"
-12.	RENDER nummber input box for Juniors 
+14.	PROMPT "Enter number of Junior participants:"
+15.	RENDER nummber input box for Juniors 
 
-13.	PROMPT "Enter number of Adult participants:"
-14.	RENDER nummber input box for Adults
+16.	PROMPT "Enter number of Adult participants:"
+17.	RENDER nummber input box for Adults
 
-15.	PROMPT "Enter number of Senior participants:"
-16.	RENDER nummber input box for Seniors 
+18.	PROMPT "Enter number of Senior participants:"
+19.	RENDER nummber input box for Seniors 
 
-17.	RENDER "next step" Button
-18.	has the "next step" Button been pressed?
+20.	RENDER "next step" Button
+21.	has the "next step" Button been pressed?
 	NO:	REPEAT from step #18
 
-19.	CALL: updateTicketData ()
+22.	CALL: updateTicketData ()
+
+23.	NAVIGATE to "RESERVATION" page
+
+24.	SET sumOfPeople to the total of participants
+	(sumOfPeople = OrderData::Attendees:juniorNum +
+					OrderData::Attendees:adultNum +
+					OrderData::Attendees:seniorNum)
+
+25.	PRINT "you have selected to participate in {OrderData::ShowData::Time} at {OrderData::ShowData::Type} for
+	{sumOfPeople} please note to have your place reserved you need to make a payment of
+	{PricingData::ReservationFee} dollars"
+
+26.	RENDER "Click to pay Button"
+27.	has the "Click to pay Button" been pressed ? 
+		NO: REPEAT from step #26
+		YES:A.	CALL processPayment_PayPal(PricingData::ReservationFee) // <-- closed Process
+			B.	SET PaymentResult to result of processPayment_PayPal() function call (PaymentResult = processPayment_PayPal(50))
+28.	was the payment successful? (PaymentResult == true)
+		NO: A.	Print "Payment Unsuccessfull please try again or contact support."
+			B.	REPEAT from step #26
+
+29.	set PaymentResult to false
+
+29.	NAVIGATE to "Ready For Show" Page
+
+30.	Print	"Congrats, now you are ready to participate in the show
+			please make sure you scan the QR-Code below for using any of the 
+			on-sight services - additional charges may apply"
+
+31. CALL: GenerateQrCode(OrderData::orderNumber) // <-- closed Process
+
+// in entertainment sight
+
+32.	CALL: fetchScanStat(orderID::orderNumber) // <-- closed Process
+
+
+
+
+
+

@@ -1,0 +1,15 @@
+####################################
+ Sub-Processes ("Closed boxes")
+####################################
+
+----------------------------- newOrderNumber -----------------------------
+1.  This "closed box" process will generate a number on database to reffer
+    to a specific order.
+
+-------------------------- processPayment_PayPal -------------------------
+1.  This "closed box" process will take the user to payment page and returns a flag
+    wether the transaction was successful or not 
+
+----------------------------- GenerateQrCode -----------------------------
+1.  This "closed box" process will take user orderID
+2.  It will generate and return the QR-code dedicated to user Order
