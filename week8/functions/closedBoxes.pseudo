@@ -1,7 +1,3 @@
-####################################
- Sub-Processes ("Closed boxes")
-####################################
-
 ----------------------------- newOrderNumber -----------------------------
 1.  This "closed box" process will generate a number on database to reffer
     to a specific order.

@@ -1,7 +1,3 @@
-####################################
- Sub-Processes ("open boxes")
-####################################
-
 addValetCharge
 -------------------------
 1. Recieves: Variable currentOrder of type <order>

@@ -14,5 +14,3 @@ updateTicketData
 5.	set OrderData::ShowData::Type to "show type" input value
 
 END
-
-
