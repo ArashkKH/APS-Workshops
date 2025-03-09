@@ -8,93 +8,57 @@
 <OrderData>
 	- orderNumber
 	- <Attendees>
-	- <ShowData>
-	- <Sevices>
-
-// OrderData Sub Structures
-	<Attendees>
 		- juniorNum
 		- AdultNum
 		- SeniorNum
-
-	<ShowData>
+	- <ShowData>
 		- Time
 		- Type
 		- Date
-
-	<Services>
+	- <Sevices>
 		- <ValetData>
-		- <Snacks>
-
-	// Services Sub Structures
-		<ValetData>
 			- type
 			- tipAmount
-		
-		<Snacks>
+		- <Snacks>
 			- nonAlchoholNum
 			- alchoholicNum
 			- miscNum
 
 <PricingData>
 	<Discounts>
-	<Snacks>
-	<Valet>
-	<Coverage>
-	<Tickets>
-	<Reservation>
-
-	// sub structures for PricongData
-	<Discounts>
 		- for2
 		- for3
 		- for4
 		- forMore
-	
 	<Snacks>
-		
-
-
-
-
-
-
-
-
-
-
+		- nonAlchohol
+		- alchoholic
+		- misc
+	<Valet>
+		- <StandarValet>
+			- Morning
+			- Evening
+		- <VipValet>
+			- Morning
+			- Evening
+	<Coverage>
+		- junior
+		- Adult
+		- Senior
+	<Tickets>
+		- <Theatre>
+			- Morning
+			- Evening
+		- <Musical>
+			- Morning
+			- Evening
+	- ReservationPayment
 
 ####################################
  Main logic
 ####################################
+
 main
 -------------------------
-1. Creates a variable currentOrder of type <order>
-2. Display "Choose your tickets"
-3. Calls addFeature ( currentOrder = addFeature(currentOrder) )
-4. Did the deposit get paid? (Call paymentGateway(currentOrder::depositAmount))
-	No: Repeat step 4
-5. Call createQR ( currentOrder::qrCode = createQR(currentOrder::orderId))
-6. Is the event over yet?
-	No: a. Has the QR code been scanned?
-		Valet: Calls addValetCharge (currentOrder = addValetCharge(currentOrder))
-		Snacks: Calls addSnacks (currentOrder = addSnacks(currentOrder))
-		b. Repeat from Step 6
-	Yes: a. Call printReceipt (currentOrder = printReceipt(currentOrder))
-	     b. Did the payment get successfully done? ( Call paymentGateway(currentOrder::total))
-			Yes: Display: "Thank you for visiting"
-			No: Repeat from step 6.Yes.b
-7. End
 
-####################################
- Sub-Processes "Closed boxes"
-####################################
-
-paymentGateway(amount)
-1. 	This "closed box" process will take user's payment info and try to initiate a transaction for the inputted amount
-2.	It will return true or false depending on whether the transaction passed or failed.
-
-createQR(id)
-1.	This "closed box" process will take user's order id and convert it into a scannable QR code.
-2.	It will return a link to a png containing the user's QR code.
 
