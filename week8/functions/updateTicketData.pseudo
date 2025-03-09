@@ -3,15 +3,12 @@ updateTicketData
 1.	set OrderData::orderNumber to result of newOrderNumber() process
 2.	has the user input a number in "junior" input ? 
 	YES	:A. set OrderData::Attendees:juniorNum to "junior" input value
-	NO	:B. set OrderData::Attendees:juniorNum to 0
 
 3.	has the user input a number in "adult" input ? 
 	YES	:A. set OrderData::Attendees:adultNum to "adult" input value
-	NO	:B. set OrderData::Attendees:adultNum to 0
 
 3.	has the user input a number in "senior" input ? 
 	YES	:A. set OrderData::Attendees:seniorNum to "senior" input value
-	NO	:B. set OrderData::Attendees:seniorNum to 0
 
 4.	set OrderData::ShowData::Time to "show time" input value
 5.	set OrderData::ShowData::Type to "show type" input value

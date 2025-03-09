@@ -22,9 +22,9 @@
 // second level sub Structures
 
 <Attendees>
-	- juniorNum
-	- AdultNum
-	- SeniorNum
+	- juniorNum = 0
+	- AdultNum = 0
+	- SeniorNum = 0
 
 <ShowData>
 	- Time
