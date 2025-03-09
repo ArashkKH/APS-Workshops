@@ -6,7 +6,7 @@
  Data Structures
 ####################################
 <OrderData>
-	- orderNumber
+	- orderID
 	- <Attendees>
 	- <ShowData>
 	- <Sevices>
@@ -99,72 +99,99 @@ main
 3.	Declare sumOfPeople
 4.	Declare PaymentResult and set to false
 5.	Declare isQrScanned and set to false
+6.	Declare currentScanService
+7.	Declare isLeaving and set to false
 
-6.	PRINT "Welcome to A la Carte Entertainment reservation System Click 
+8.	PRINT "Welcome to A la Carte Entertainment reservation System Click 
 		add Order to start the process!"
 
-7.	RENDER "Add Order" Button
-8.	has the "Add Order" Button been pressed?
+9.	RENDER "Add Order" Button
+10.	has the "Add Order" Button been pressed?
 		NO : A. REPEAT from Step #5
 
-9.	NAVIGATE to "ORDER iNFORMATION" page
-10.	PROMPT "show type:"
-11.	RENDER two options type of radioboxes ( Musical or Theatre )
+11.	NAVIGATE to "ORDER iNFORMATION" page
+12.	PROMPT "show type:"
+13.	RENDER two options type of radioboxes ( Musical or Theatre )
 
-12.	PROMPT "show time:"
-13.	RENDER two options type of radioboxes ( Matinée or Evening )
+14.	PROMPT "show time:"
+15.	RENDER two options type of radioboxes ( Matinée or Evening )
 
-14.	PROMPT "Enter number of Junior participants:"
-15.	RENDER nummber input box for Juniors 
+16.	PROMPT "Enter number of Junior participants:"
+17.	RENDER nummber input box for Juniors 
 
-16.	PROMPT "Enter number of Adult participants:"
-17.	RENDER nummber input box for Adults
+18.	PROMPT "Enter number of Adult participants:"
+19.	RENDER nummber input box for Adults
 
-18.	PROMPT "Enter number of Senior participants:"
-19.	RENDER nummber input box for Seniors 
+20.	PROMPT "Enter number of Senior participants:"
+21.	RENDER nummber input box for Seniors 
 
-20.	RENDER "next step" Button
-21.	has the "next step" Button been pressed?
+22.	RENDER "next step" Button
+23.	has the "next step" Button been pressed?
 	NO:	REPEAT from step #18
 
-22.	CALL: updateTicketData ()
+24.	CALL: updateTicketData ()
 
-23.	NAVIGATE to "RESERVATION" page
+25.	NAVIGATE to "RESERVATION" page
 
-24.	SET sumOfPeople to the total of participants
+26.	SET sumOfPeople to the total of participants
 	(sumOfPeople = OrderData::Attendees:juniorNum +
 					OrderData::Attendees:adultNum +
 					OrderData::Attendees:seniorNum)
 
-25.	PRINT "you have selected to participate in {OrderData::ShowData::Time} at {OrderData::ShowData::Type} for
+27.	PRINT "you have selected to participate in {OrderData::ShowData::Time} at {OrderData::ShowData::Type} for
 	{sumOfPeople} please note to have your place reserved you need to make a payment of
 	{PricingData::ReservationFee} dollars"
 
-26.	RENDER "Click to pay Button"
-27.	has the "Click to pay Button" been pressed ? 
+28.	RENDER "Click to pay Button"
+29.	has the "Click to pay Button" been pressed ? 
 		NO: REPEAT from step #26
 		YES:A.	CALL processPayment_PayPal(PricingData::ReservationFee) // <-- closed Process
 			B.	SET PaymentResult to result of processPayment_PayPal() function call (PaymentResult = processPayment_PayPal(50))
-28.	was the payment successful? (PaymentResult == true)
+30.	was the payment successful? (PaymentResult == true)
 		NO: A.	Print "Payment Unsuccessfull please try again or contact support."
 			B.	REPEAT from step #26
 
-29.	set PaymentResult to false
+31.	set PaymentResult to false
 
-29.	NAVIGATE to "Ready For Show" Page
+32.	NAVIGATE to "Ready For Show" Page
 
-30.	Print	"Congrats, now you are ready to participate in the show
+33.	Print	"Congrats, now you are ready to participate in the show
 			please make sure you scan the QR-Code below for using any of the 
 			on-sight services - additional charges may apply"
 
-31. CALL: GenerateQrCode(OrderData::orderNumber) // <-- closed Process
+34. CALL: GenerateQrCode(OrderData::orderID) // <-- closed Process
 
 // in entertainment sight
 
-32.	CALL: fetchScanStat(orderID::orderNumber) // <-- closed Process
+35.	CALL: fetchScanStat(OrderData::orderID) // <-- closed Process
+36. SET the result of fetchScanStat() to isQrScanned (isQrScanned = fetchScanStat(OrderData::orderID)) 
+37. has the user scanned their QrCode for any services? (isQrScanned == true)
+		YES:	A.CALL: fetchScanService(OrderData::orderID) // <-- closed Process
+				B.SET the result of fetchScanService() to currentScanService
+				C.has the user scanned for valet Parking? (currentScanService == "valet")
+					YES:1.	CALL addValetCharge()
+						2.	set isQrScanned to false
+				D.has the user scanned for SnackBar? (currentScanService == "SnackBar")
+					YES:1.	CALL addSnackCharge()
+						2.	set isQrScanned to false
+				E.has the user scanned for leaving? (currentScanService == "leaving")
+					YES:1.	set isLeaving to true
+38.	is the user leaving the area ? (isLeaving == true)
+		NO :	A.REPEAT from step#32
+39.	print "your session has ended,
+			your receipt is as following"
+40. CALL:printReceipt(currentOrder ,StaticData)
+41.	SET totalPayment to the result of printReceipt() function
+42.	RENDER "Click to pay Button"
+43.	has the "Click to pay Button" been pressed ? 
+		NO: REPEAT from step #39
+		YES:A.	CALL processPayment_PayPal(totalPayment) // <-- closed Process
+			B.	SET PaymentResult to result of processPayment_PayPal() function call (PaymentResult = processPayment_PayPal(totalPayment))
+44.	was the payment successful? (PaymentResult == true)
+		NO: A.	Print "Payment Unsuccessfull please try again or contact support."
+			B.	REPEAT from step #39
+		YES:A.	Print "Payment Successful, thank you for using our services :)"
+END
+						
 
-
-
-
-
-
+				

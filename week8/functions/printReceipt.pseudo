@@ -1,6 +1,7 @@
 printReceipt
 -------------------------
 1. Recieves: Variable currentOrder of type <order>
+1. Recieves: Variable StaticData of type <PricingData>
 2. Create variable subTotal, tax and total
 3. Display order number( Display: Order #: currentOrder::orderId)
 4. Display Date ( Display: Date: currentOrder::feature::date)

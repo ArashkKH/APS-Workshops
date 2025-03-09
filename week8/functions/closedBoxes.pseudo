@@ -13,3 +13,9 @@
 ----------------------------- GenerateQrCode -----------------------------
 1.  This "closed box" process will take user orderID
 2.  It will generate and return the QR-code dedicated to user Order
+
+
+------------------------------ fetchScanStat -----------------------------
+1.  This "closed box" process will take user orderID
+2.  It will return a value of true or false based on if the user dedicated to orderID
+    has scanned their QrCode or not
